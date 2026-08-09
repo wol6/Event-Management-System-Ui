@@ -1,0 +1,48 @@
+import React, { useEffect, useState } from 'react'
+import EventCard from '../components/user/EventCard'
+import api from '../api/axios'
+import SearchPage from '../components/layout/SearchPage'
+import PagenationBtn from '../components/layout/PagenationBtn'
+
+function ExploreEvents() {
+    const [events, setEvents] = useState([])
+    const [searchQuery, setSearchQuery] = useState("")
+    const [currentPage, setCurrentPage] = useState(0)
+    const [totalPages, setTotalPages] = useState(0)
+
+    async function getEvents() {
+        const limit = 9
+        try {
+            const { data: resp } = await api.get('/explore-events', {
+                params: {
+                    pageNo: currentPage,
+                    limit,
+                    search: searchQuery,
+                }
+            })
+            if (resp.success) {
+                const list = resp.list ?? []
+                setEvents(list)
+                const totalPage = Math.ceil(resp.totalPgCount / limit)
+                setTotalPages(totalPage)
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    useEffect(() => {
+        getEvents()
+    }, [currentPage,searchQuery])
+
+    return (
+        <div className='p-6'>
+            <SearchPage searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <EventCard events={events} isExplorePage={true}/>
+            <PagenationBtn currentPage={currentPage} setCurrentPage={setCurrentPage}
+                totalPages={totalPages} />
+        </div>
+    )
+}
+
+export default ExploreEvents
