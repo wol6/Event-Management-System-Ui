@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import api from '../../api/axios'
+import Loader from '../layout/Loader'
 
 function MyEvents({ openMyEvent, setOpenMyEvent }) {
   const dialogRef = useRef(null)
+  const [isLoading, setIsloading] = useState(false)
   const [detailsArr, setDetailsArr] = useState([])
 
   useEffect(() => {
@@ -18,6 +20,7 @@ function MyEvents({ openMyEvent, setOpenMyEvent }) {
   }, [openMyEvent])
 
   async function getEvents() {
+    setIsloading(true)
     try {
       const { data: resp } = await api.get('/get-user-events')
       if (resp.success) {
@@ -25,6 +28,8 @@ function MyEvents({ openMyEvent, setOpenMyEvent }) {
       }
     } catch (e) {
       console.log(e)
+    } finally {
+      setIsloading(false)
     }
   }
 
@@ -213,6 +218,7 @@ function MyEvents({ openMyEvent, setOpenMyEvent }) {
         </div>
 
       </div>
+      {isLoading && <Loader/>}
     </dialog>
   )
 }

@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import api from '../../api/axios'
 import { toast } from 'sonner'
+import Loader from '../layout/Loader'
 
 function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
 
     const dialogRef = useRef(null)
-
+    const [isLoading, setIsloading] = useState(false)
     const [eventType] = useState(['open', 'seated'])
     const [isPaid] = useState(['yes', 'no'])
 
@@ -69,6 +70,7 @@ function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
     }, [editEventObj])
 
     async function handleCreateEvent(e) {
+        setIsloading(true)
         e.preventDefault();
         try {
             if (editEventObj) {
@@ -89,6 +91,8 @@ function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
             }
         } catch (e) {
             console.log(e)
+        }finally{
+            setIsloading(false)
         }
     }
     return (
@@ -323,6 +327,7 @@ function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
                         </div>
                     </form>
                 </div>
+                {isLoading && <Loader/> }
             </dialog>
         </>
     )

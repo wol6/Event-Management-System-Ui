@@ -4,8 +4,10 @@ import api from '../../api/axios'
 import Header from '../../components/layout/Header'
 import SearchPage from '../../components/layout/SearchPage'
 import PagenationBtn from '../../components/layout/PagenationBtn'
+import Loader from '@/components/layout/Loader'
 
 function UserHome() {
+    const [isLoading, setIsloading] = useState(true)
     const [refresh, setRefresh] = useState(0)
     const [events, setEvents] = useState([])
     const [currentPage, setCurrentPage] = useState(0)
@@ -17,6 +19,7 @@ function UserHome() {
     }, [currentPage, searchQuery, refresh])
 
     async function showEvents() {
+        setIsloading(true)
         const limit = 6
         try {
             const { data: resp } = await api.get('/show-event', {
@@ -33,6 +36,9 @@ function UserHome() {
             }
         } catch (e) {
             console.log(e)
+        } finally {
+            setIsloading(false)
+
         }
     }
 
@@ -43,8 +49,8 @@ function UserHome() {
 
             <main className="mx-auto max-w-7xl px-4 py-7 sm:px-6 lg:px-8">
 
-                
-            <SearchPage setSearchQuery={setSearchQuery} searchQuery={searchQuery}/>
+
+                <SearchPage setSearchQuery={setSearchQuery} searchQuery={searchQuery} />
 
 
                 <div className="mb-5 flex items-end justify-between">
@@ -68,11 +74,11 @@ function UserHome() {
                 />
 
 
-             <PagenationBtn currentPage={currentPage} setCurrentPage={setCurrentPage}
-             totalPages={totalPages}/>
+                <PagenationBtn currentPage={currentPage} setCurrentPage={setCurrentPage}
+                    totalPages={totalPages} />
 
             </main>
-
+        {isLoading && <Loader/>}
         </div>
     )
 }
