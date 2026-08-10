@@ -96,7 +96,7 @@ function Home() {
                 <div className="max-w-7xl mx-auto border-t border-white/20 pt-5">
 
                     <p>
-                        © {new Date().getFullYear()} EventHub. All rights reserved.
+                        © {new Date().getFullYear()} EventHub. All rights reserved v.1.0.1
                     </p>
 
                 </div>
