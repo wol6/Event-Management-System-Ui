@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 import img from '../../assets/plainBoard.jpg'
+import Loader from "@/components/layout/Loader";
 
 function Login() {
     const navigate = useNavigate()
+    const [isLoading, setIsloading] = useState(false)
     const [loginObj, setLoginObj] = useState({
         email: "",
         password: "",
@@ -25,6 +27,7 @@ function Login() {
     }
 
     async function handleSubmit(e) {
+        setIsloading(true)
         e.preventDefault()
         try {
             const { data: resp } = await api.post('/signin', loginObj)
@@ -35,10 +38,13 @@ function Login() {
             }
         } catch (e) {
             console.log(e)
+        } finally {
+            setIsloading(false)
         }
     }
 
     return (
+        <>
         <div
             className="min-h-screen flex items-center justify-center px-4 relative bg-cover bg-center"
             style={{ backgroundImage: `url(${img})` }}
@@ -109,7 +115,7 @@ function Login() {
                         type="submit"
                         className="w-full bg-blue-600 text-white py-3 cursor-pointer rounded-lg hover:bg-blue-700 transition duration-300"
                     >
-                        Login
+                        {isLoading ? "Signing..." : "Sign In"}
                     </button>
                 </form>
 
@@ -125,6 +131,8 @@ function Login() {
 
             </div>
         </div>
+           {isLoading && <Loader />}
+        </>
     );
 
 }

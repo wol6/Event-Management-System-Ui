@@ -4,9 +4,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import api from "../../api/axios";
 import img from "../../assets/plainBoard.jpg";
 import { toast } from "sonner";
+import Loader from "@/components/layout/Loader";
 
 function Register() {
     const navigate = useNavigate();
+    const [isLoading, setIsloading] = useState(false)
     const [showAlert, setShowAlert] = useState(false);
     const [userObj, setUserObj] = useState({
         name: "",
@@ -30,6 +32,7 @@ function Register() {
     }
 
     async function handleSubmit(e) {
+        setIsloading(true)
         e.preventDefault();
 
         try {
@@ -49,10 +52,13 @@ function Register() {
             }
         } catch (e) {
             console.log(e);
+        }finally{
+        setIsloading(false)
         }
     }
 
     return (
+        <>
         <div className="h-screen w-full flex overflow-hidden bg-white">
 
             <div className="hidden md:block w-[60%] h-screen relative overflow-hidden">
@@ -223,7 +229,7 @@ function Register() {
                             type="submit"
                             className="w-full bg-blue-600 text-white py-2.5 rounded-lg font-medium hover:bg-blue-700 cursor-pointer transition duration-300 shadow-sm"
                         >
-                            Create Account
+                            {isLoading?"Registering...":"Create Account"}
                         </button>
 
                     </form>
@@ -247,6 +253,8 @@ function Register() {
             </div>
 
         </div>
+        {isLoading && <Loader/> }
+        </>
     );
 }
 
