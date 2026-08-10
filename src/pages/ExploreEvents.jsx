@@ -42,18 +42,17 @@ function ExploreEvents() {
 
     return (
         <>
-            {
-                isLoading ? (
-                    <Loader />
-                ) : (
-                    <div className='p-6'>
-                        <SearchPage searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-                        <EventCard events={events} isExplorePage={true} />
-                        <PagenationBtn currentPage={currentPage} setCurrentPage={setCurrentPage}
-                            totalPages={totalPages} />
-                    </div>
-                )
-            }
+            {/* Your form */}
+            <div className='p-6'>
+                <SearchPage searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                <EventCard events={events} isExplorePage={true} />
+                <PagenationBtn currentPage={currentPage} setCurrentPage={setCurrentPage}
+                    totalPages={totalPages} />
+            </div>
+
+
+            {isLoading && <Loader />}
+
         </>
 
     )
