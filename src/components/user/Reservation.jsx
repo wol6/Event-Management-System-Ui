@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import SeatCard from './SeatCard';
 
-function Reservation({open,setOpen,eventObj}) {
+function Reservation({open,setOpen,eventObj,setRefresh}) {
     const dialogRef = useRef(null)
 
     useEffect(() => {
@@ -32,7 +32,7 @@ function Reservation({open,setOpen,eventObj}) {
                         &times;
                     </button>
                 </div>
-            <SeatCard eventObj={eventObj} setOpen={setOpen}/>
+            <SeatCard eventObj={eventObj} setOpen={setOpen} setRefresh={setRefresh}/>
 
             </div>
         </dialog>

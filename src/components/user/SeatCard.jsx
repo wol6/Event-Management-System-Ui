@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import api from '../../api/axios'
 import { toast, Toaster } from 'sonner'
+import { handlePayment } from '@/utils/payment'
 
-function SeatCard({ eventObj, setOpen }) {
+function SeatCard({ eventObj, setOpen, setRefresh }) {
 
     const totalSeats = eventObj.capacity
     const seatsArray = Array.from({ length: totalSeats }, (_, index) => index + 1)
@@ -30,7 +31,13 @@ function SeatCard({ eventObj, setOpen }) {
                 id: eventObj._id,
                 seatNos: selectedSeats
             })
-            setOpen(false)
+            if (resp.success) {
+                if (resp.isPaid) {
+                    handlePayment(resp.razorpayOrder)
+                }
+                setOpen(false)
+                setRefresh(prev => prev + 1)
+            }
         } catch (e) {
             console.log(e)
         }
@@ -43,7 +50,7 @@ function SeatCard({ eventObj, setOpen }) {
                 <div className="absolute top-5 right-6">
                     <button
                         disabled={selectedSeats.length == 0}
-                        onClick={() => handleSeatReservation()}
+                        onClick={handleSeatReservation}
                         className={`px-4 py-2 text-sm font-semibold rounded-lg transition-all shadow-sm
                         ${selectedSeats.length
                                 ? 'bg-indigo-600 text-white cursor-pointer hover:bg-indigo-700 active:scale-95'

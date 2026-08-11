@@ -4,6 +4,7 @@ import Reservation from "./Reservation";
 import img from '../../assets/homeBg.jpg'
 import { toast } from "sonner";
 import InputDialogBox from "../layout/InputDialogBox";
+import { handlePayment } from "@/utils/payment";
 
 function EventCard({ events, setRefresh, isExplorePage = false }) {
     const [openDialog, setOpenDialog] = useState(false)
@@ -19,7 +20,6 @@ function EventCard({ events, setRefresh, isExplorePage = false }) {
             }
             setRegDetails({ ...regDetails, eventId: event._id })
             setOpenInputDialog(true)
-            // handleRegister(event._id)
         } else {
             if (isExplorePage) {
                 return toast.info('Sign-in to register for events')
@@ -27,14 +27,17 @@ function EventCard({ events, setRefresh, isExplorePage = false }) {
             openDialogBox(event)
         }
     }
-    async function handleRegister() {
+    async function handleReservation() {
 
         try {
             const { data: resp } = await api.post('/reserve-seat', {
                 id: regDetails.eventId,
-                count: regDetails.count
+                headCount: regDetails.count,
             })
             if (resp.success) {
+                if (resp.isPaid) {
+                    handlePayment(resp.razorpayOrder)
+                }
                 setRefresh(prev => prev + 1)
             }
         } catch (e) {
@@ -45,6 +48,7 @@ function EventCard({ events, setRefresh, isExplorePage = false }) {
         setOpenDialog(true)
         setEventObj(event)
     }
+
 
     return (
         <div className="grid gap-5 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
@@ -195,9 +199,10 @@ function EventCard({ events, setRefresh, isExplorePage = false }) {
                 open={openDialog}
                 setOpen={setOpenDialog}
                 eventObj={eventObj}
+                setRefresh={setRefresh}
             />
             <InputDialogBox open={openInputDialog} setOpen={setOpenInputDialog}
-                detailsObj={regDetails} setDetailsObj={setRegDetails} handleRegister={handleRegister} />
+                detailsObj={regDetails} setDetailsObj={setRegDetails} handleRegister={handleReservation} />
         </div>
     )
 
@@ -205,4 +210,4 @@ function EventCard({ events, setRefresh, isExplorePage = false }) {
 
 }
 
-export default EventCard;
+export default EventCard

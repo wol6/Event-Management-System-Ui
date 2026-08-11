@@ -147,12 +147,12 @@ function MyEvents({ openMyEvent, setOpenMyEvent }) {
                         <div className="flex items-end justify-between">
 
                           <div>
-                            <p className="text-[10px] uppercase tracking-wide text-gray-500">
-                              Guests
+                            <p className="text-[10px] uppercase tracking-wide text-gray-800">
+                              Guests | Amt
                             </p>
 
                             <p className="text-sm font-bold text-gray-900 mt-1">
-                              {item.headCount || 0}
+                              👤 {item.headCount || 0} |  ₹{item.totalAmt}
                             </p>
                           </div>
 
@@ -192,18 +192,21 @@ function MyEvents({ openMyEvent, setOpenMyEvent }) {
                             </p>
 
                             <span
-                              className="
+                              className={`
                         inline-block
                         mt-1
                         px-2 py-1
                         rounded-full
-                        bg-green-100
-                        text-green-700
-                        text-[10px]
-                        font-bold
-                      "
+                        ${item.bookingStatus == 'confirmed' ?
+                                  `bg-green-00 text-green-700` :
+                                  `bg-yellow-100 text-yellow-700`
+                                }
+
+                            text-[10px]
+                            font-bold
+                      `}
                             >
-                              CONFIRMED
+                              {item.bookingStatus}
                             </span>
                           </div>
 
@@ -218,8 +221,8 @@ function MyEvents({ openMyEvent, setOpenMyEvent }) {
         </div>
 
       </div>
-      {isLoading && <Loader/>}
-    </dialog>
+      {isLoading && <Loader />}
+    </dialog >
   )
 }
 

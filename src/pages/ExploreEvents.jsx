@@ -4,6 +4,7 @@ import api from '../api/axios'
 import SearchPage from '../components/layout/SearchPage'
 import PagenationBtn from '../components/layout/PagenationBtn'
 import Loader from '@/components/layout/Loader'
+import Payment from '@/components/layout/Payment'
 
 function ExploreEvents() {
     const [isLoading, setIsloading] = useState(false)
@@ -42,6 +43,7 @@ function ExploreEvents() {
 
     return (
         <>
+        <Payment/>
             {/* Your form */}
             <div className='p-6'>
                 <SearchPage searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
