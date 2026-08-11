@@ -13,7 +13,14 @@ api.interceptors.response.use(
 
     (error) => {
         const message = error.response?.data?.message;
-        
+
+        if (error.response?.status == 403 || error.response?.status == 401) {
+            setTimeout(() => {
+                window.location.href = "/"
+            }, 3000)
+            // return Promise.reject(error)
+        }
+
         if (message) {
             toast.warning(`Error: ${message}`);
         } else if (error.request) {

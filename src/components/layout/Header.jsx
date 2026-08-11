@@ -58,14 +58,14 @@ function Header() {
                         {!isAdmin && (
                             <span
                                 onClick={openDialog}
-                                className="hidden cursor-pointer rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-blue-600 sm:block"
+                                className="cursor-pointer rounded-lg px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-50 hover:text-blue-600 sm:block"
                             >
                                 My Events
                             </span>
                         )}
 
 
-                        <span className="max-w-[150px] truncate rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm sm:max-w-none sm:px-4 sm:text-sm">
+                        <span className="hidden sm:block max-w-[150px] truncate rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 shadow-sm sm:max-w-none sm:px-4 sm:text-sm">
                             {userName}
                         </span>
 

@@ -167,7 +167,7 @@ function EventCard({ events, setRefresh, isExplorePage = false }) {
                                     </p>
 
                                     <p className="text-xs font-medium text-gray-700">
-                                        {event?.isPaid ? `Paid / ${event?.eventType}` : `Free / ${event?.eventType}`}
+                                        {event?.isPaid ? `Paid / ${event?.eventType} ₹${event?.amount}` : `Free / ${event?.eventType}`}
                                     </p>
                                 </div>
                             </div>
