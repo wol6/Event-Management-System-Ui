@@ -1,9 +1,20 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import bgImg from "../assets/homeBg.jpg";
+import api from "@/api/axios";
 
 function Home() {
+    async function coldStartApiHelper() {
+        try{
+            await api.get('/test')
+        }catch(e){
+            console.log(e)
+        }
+    }
+    useEffect(()=>{
+        coldStartApiHelper()
+    },[])
     return (
         <div
             className="min-h-screen w-full relative bg-cover bg-center flex flex-col"
@@ -96,7 +107,7 @@ function Home() {
                 <div className="max-w-7xl mx-auto border-t border-white/20 pt-5">
 
                     <p>
-                        © {new Date().getFullYear()} EventHub. All rights reserved v.2.0.2
+                        © {new Date().getFullYear()} EventHub. All rights reserved v.2.1.3
                     </p>
 
                 </div>
