@@ -4,6 +4,7 @@ import api from '../api/axios'
 import SearchPage from '../components/layout/SearchPage'
 import PagenationBtn from '../components/layout/PagenationBtn'
 import Loader from '@/components/layout/Loader'
+import { moveToTop } from '@/utils/style'
 
 function ExploreEvents() {
     const [isLoading, setIsloading] = useState(false)
@@ -28,6 +29,7 @@ function ExploreEvents() {
                 setEvents(list)
                 const totalPage = Math.ceil(resp.totalPgCount / limit)
                 setTotalPages(totalPage)
+                moveToTop()
             }
         } catch (e) {
             console.log(e)

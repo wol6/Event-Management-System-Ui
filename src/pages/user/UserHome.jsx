@@ -5,6 +5,7 @@ import Header from '../../components/layout/Header'
 import SearchPage from '../../components/layout/SearchPage'
 import PagenationBtn from '../../components/layout/PagenationBtn'
 import Loader from '@/components/layout/Loader'
+import { moveToTop } from '@/utils/style'
 
 function UserHome() {
     const [isLoading, setIsloading] = useState(true)
@@ -33,6 +34,7 @@ function UserHome() {
                 const totalPage = Math.ceil(resp.totalPgCount / limit)
                 setTotalPages(totalPage)
                 setEvents(resp.list)
+                moveToTop()
             }
         } catch (e) {
             console.log(e)
