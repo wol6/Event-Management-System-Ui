@@ -46,9 +46,9 @@ function Register() {
             if (resp.success) {
                 toast.success(resp.message);
                 setShowAlert(true);
-                // setTimeout(() => {
-                //     navigate("/login");
-                // }, 2000);
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
             }
         } catch (e) {
             console.log(e);
@@ -133,11 +133,11 @@ function Register() {
                     </div>
 
 
-                    {showAlert && (
+                    {/* {showAlert && (
                         <div className="mb-4 rounded-lg bg-green-50 border border-green-200 px-4 py-2.5 text-center text-sm text-green-600 font-medium">
                             Verify your Email!!!
                         </div>
-                    )}
+                    )} */}
 
 
                     <form
