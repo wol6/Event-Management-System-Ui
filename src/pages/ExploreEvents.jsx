@@ -10,6 +10,7 @@ function ExploreEvents() {
     const [isLoading, setIsloading] = useState(false)
     const [events, setEvents] = useState([])
     const [searchQuery, setSearchQuery] = useState("")
+    const [debounceSearch, setDebounceSearch] = useState("")
     const [currentPage, setCurrentPage] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
 
@@ -21,7 +22,7 @@ function ExploreEvents() {
                 params: {
                     pageNo: currentPage,
                     limit,
-                    search: searchQuery,
+                    search: debounceSearch,
                 }
             })
             if (resp.success) {
@@ -40,7 +41,14 @@ function ExploreEvents() {
 
     useEffect(() => {
         getEvents()
-    }, [currentPage, searchQuery])
+    }, [currentPage, debounceSearch])
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebounceSearch(searchQuery)
+        }, 1000)
+        return () => clearTimeout(timer)
+    }, [searchQuery])
 
     return (
         <>

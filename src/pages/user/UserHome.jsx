@@ -14,10 +14,18 @@ function UserHome() {
     const [currentPage, setCurrentPage] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
     const [searchQuery, setSearchQuery] = useState("")
+    const [debounceSearch, setDebounceSearch] = useState("")
 
     useEffect(() => {
         showEvents()
-    }, [currentPage, searchQuery, refresh])
+    }, [currentPage, debounceSearch, refresh])
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebounceSearch(searchQuery)
+        }, 1000)
+        return () => clearTimeout(timer)
+    }, [searchQuery])
 
     async function showEvents() {
         setIsloading(true)
@@ -27,7 +35,7 @@ function UserHome() {
                 params: {
                     pageNo: currentPage,
                     limit,
-                    search: searchQuery
+                    search: debounceSearch
                 }
             })
             if (resp.success) {
@@ -80,7 +88,7 @@ function UserHome() {
                     totalPages={totalPages} />
 
             </main>
-        {isLoading && <Loader/>}
+            {isLoading && <Loader />}
         </div>
     )
 }
