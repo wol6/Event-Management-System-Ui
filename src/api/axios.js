@@ -15,10 +15,11 @@ api.interceptors.response.use(
         const message = error.response?.data?.message;
 
         if (error.response?.status == 403 || error.response?.status == 401) {
+            toast.error(`Error: ${message}`);
             setTimeout(() => {
                 window.location.href = "/"
-            }, 3000)
-            // return Promise.reject(error)
+            }, 2000)
+            return Promise.reject(error)
         }
 
         if (message) {
@@ -28,7 +29,7 @@ api.interceptors.response.use(
         } else {
             toast.error(`Unexpected Error: ${error.message}`);
         }
-        console.log(error)
+        console.log('global',error)
 
         return Promise.reject(error);
     }

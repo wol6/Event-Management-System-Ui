@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import api from '../../api/axios'
-import { toast, Toaster } from 'sonner'
+import { toast } from 'sonner'
 import { handlePayment } from '@/utils/payment'
+import { Toaster } from '../ui/sonner'
 
 function SeatCard({ eventObj, setOpen, setRefresh }) {
 

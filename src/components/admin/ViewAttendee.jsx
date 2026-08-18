@@ -13,7 +13,6 @@ function ViewAttendee({ attOpen, setAttOpen, selectedEvent, attendeeList }) {
             dialog.close();
         }
     }, [attOpen])
-    console.log(attendeeList)
     return (
         <>
             <dialog

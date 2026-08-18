@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import api from '../../api/axios'
 import { toast } from 'sonner'
 import Loader from '../layout/Loader'
+import { Toaster } from '../ui/sonner'
 
 function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
 
@@ -34,7 +35,7 @@ function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
     };
 
     const [eventObj, setEventObj] = useState(initialFormState)
-    console.log(eventObj)
+
     function handleChange(e) {
         const { name, value } = e.target
         setEventObj((prev) => {
@@ -80,6 +81,7 @@ function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
                     setOpen(false)
                     onRefresh()
                 }
+
             } else {
                 const { data: resp } = await api.post('/add-event', eventObj)
                 if (resp.success) {
@@ -91,7 +93,7 @@ function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
             }
         } catch (e) {
             console.log(e)
-        }finally{
+        } finally {
             setIsloading(false)
         }
     }
@@ -327,7 +329,8 @@ function EventDialog({ open, setOpen, editEventObj, onRefresh }) {
                         </div>
                     </form>
                 </div>
-                {isLoading && <Loader/> }
+                {isLoading && <Loader />}
+            <Toaster position="top-center" />
             </dialog>
         </>
     )
