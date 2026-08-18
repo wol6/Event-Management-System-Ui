@@ -4,9 +4,11 @@ import Home from './pages/Home'
 import Login from './pages/login/Login'
 import Register from './pages/login/Register'
 import UserHome from './pages/user/UserHome'
-import Dashboard from './pages/admin/Dashboard'
 import ExploreEvents from './pages/ExploreEvents'
 import { Toaster } from './components/ui/sonner'
+import AdminHome from './pages/admin/AdminHome'
+import AdminEvents from './pages/admin/AdminEvents'
+import Dashboard from './pages/admin/Dashboard'
 
 function App() {
 
@@ -18,7 +20,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/user" element={<UserHome />} />
         <Route path="/explore" element={<ExploreEvents/>} />
-        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/events" element={<AdminEvents />} />
       </Routes>
       <Toaster position="top-center" />
     </>

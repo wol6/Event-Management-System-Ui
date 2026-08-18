@@ -33,7 +33,7 @@ function Login() {
             const { data: resp } = await api.post('/signin', loginObj)
             if (resp.success) {
                 sessionStorage.setItem('user', JSON.stringify(resp.user))
-                resp.user.isAdmin ? navigate('/admin') : navigate('/user')
+                resp.user.isAdmin ? navigate('/admin/dashboard') : navigate('/user')
 
             }
         } catch (e) {
